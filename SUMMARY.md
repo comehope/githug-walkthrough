@@ -58,6 +58,6 @@
 * [第53关 conflict](level-53.md)
 * [第54关 submodule](level-54.md)
 * [第55关 contribute](level-55.md)
-* [通关总结](conclusion.md)
 * [附录A Git 学习资源](resources.md)
-* [附录B 常用 Linux 命令](linux.md)
+* [附录B Linux 常用命令](linux.md)
+* [附录C Vim 常用命令](vim.md)
