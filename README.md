@@ -11,3 +11,7 @@ Githug 是一个学习 Git 的游戏，让你在游戏中轻松学习和理解 G
 作者博客：[http://www.zhang-ou.com](http://www.zhang-ou.com)
 
 封面插图由张子凡同学提供。
+
+移动端请扫码阅读：
+
+![图书地址二维码](images/qrcode.png)
