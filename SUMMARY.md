@@ -3,7 +3,7 @@
 * [内容简介](README.md)
 * [前言](preface.md)
 * [安装和使用方法](install.md)
-* [关卡列表](index.md)
+* [关卡列表](levels.md)
 * [第1关 init](level-1.md)
 * [第2关 config](level-2.md)
 * [第3关 add](level-3.md)
