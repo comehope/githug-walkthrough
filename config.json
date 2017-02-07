@@ -1,0 +1,10 @@
+{
+    "name": "Githug 通关攻略",
+    "introduction": "Githug 是一个学习 Git 的游戏，让你在游戏中轻松学习和理解 Git 的强大功能，本书详细讲解了每一关任务产生的背景、解决问题的思路和方法，并提供了清晰的过关画面。",
+    "title": "Githug 通关攻略",
+    "keywords": "Githug,Git,通关攻略,怎么过,学习笔记",
+    "description": "详细讲解 Githug 每一关任务产生的背景、解决问题的思路和方法，并提供了清晰的过关画面。",
+    "path": {
+        "toc": "SUMMARY.md"
+        }
+}

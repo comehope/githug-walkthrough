@@ -1,4 +1,4 @@
-# 安装和使用方法
+# Githug 安装和使用方法
 
 先安装好 [git](https://git-scm.com/) 和 [ruby](https://www.ruby-lang.org/) 的运行环境，略。
 
