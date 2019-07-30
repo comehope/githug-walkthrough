@@ -1,24 +1,33 @@
-# 第50关 find\_old\_branch
+# 第50关 stage_lines
 
-> You have been working on a branch but got distracted by a major issue and forgot the name of it. Switch back to that branch.
+> You've made changes within a single file that belong to two different features, but neither of the changes are yet staged. Stage only the changes belonging to the first feature.
 > 
-> 你在一个分支上工作时，被分派处理一个重要的问题，可是处理完这个问题之后，你忘了刚才是在哪个分支上工作了。切换回那个分支。
+> 你修改了一个文件的多处代码，这些代码分属于2个不同的功能，代码还没有提交到暂存区。仅提交第1个功能相关的代码到暂存区。
 
-这种情况确实经常发生，笨办法就是逐个进入各个分支查看日志，再回忆一下刚才的工作情景。而 Git 提供了一个工具，可以用来查看你在 Git 上的历史操作：
+用 `git add` 命令可以把文件添加到暂存区，但如果你不想把文件中的全部修改都提交到暂存区，或者说你只想把文件中的部分修改提交到缓存区，那么你需要加上 `edit` 参数：
 
 ```
-$ git reflog
-894a16d HEAD@{0}: commit: commit another todo
-6876e5b HEAD@{1}: checkout: moving from solve_world_hunger to kill_the_batman
-324336a HEAD@{2}: commit: commit todo
-6876e5b HEAD@{3}: checkout: moving from blowup_sun_for_ransom to solve_world_hunger
-6876e5b HEAD@{4}: checkout: moving from kill_the_batman to blowup_sun_for_ransom
-6876e5b HEAD@{5}: checkout: moving from cure_common_cold to kill_the_batman
-6876e5b HEAD@{6}: commit (initial): initial commit
+$ git add your-file --edit
 ```
 
-你看，不仅与文件相关的 `git commit` 操作被记录了，连你 `git checkout` 操作也都记下来了，现在，你就知道此前是怎么在各个分支之间跳转的了。
+这时 Git 会自动打开文本编辑器，编辑的内容就是 `git diff` 命令的结果，这时你就可以编辑2个文件之间的差异，只保留要提交到暂存区的差异，而删除不需要提交到暂存区的差异，然后保存退出，Git 就会按你编辑过的差异把相应的内容提交到暂存区。
+
+比如本关，文件的差异为：
+
+```
+$ git diff feature.rb
+diff --git a/feature.rb b/feature.rb
+index 1a271e9..4a80dda 100644
+--- a/feature.rb
++++ b/feature.rb
+@@ -1 +1,3 @@
+ this is the class of my feature
++This change belongs to the first feature
++This change belongs to the second feature
+```
+
+从最后2行可以看出，新增的代码分别对应2个不同的功能，如果我们只想提交第1个功能的代码，删除掉最后一行即可。
 
 第50关过关画面如下：
 
-![第50关 find_old_branch](images/level-50-find-old-branch.png)
+![第50关 stage_lines](images/level-50-stage-lines.png)

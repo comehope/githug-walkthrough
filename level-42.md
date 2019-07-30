@@ -1,17 +1,33 @@
-# 第42关 cherry-pick
+# 第42关 repack
 
-> Your new feature isn't worth the time and you're going to delete it. But it has one commit that fills in `README` file, and you want this commit to be on the master as well.
+> Optimise how your repository is packaged ensuring that redundant packs are removed.
 > 
-> 你在新功能上的努力白废了，准备删除掉它，但是往 'README' 文件里填充内容的那次提交还有用，你要把这次提交合并到主线上。
+> 优化你的仓库，重新打包，并清除多余的包。
 
-如果你创建了一个分支，在其中进行了多次提交，而在合并时不想把分支上所有的提交都合并到主线，只想选取其中的1个提交合并到主线，那么你可以用下面的命令：
+在第1关里我们提到，当 Git 项目初始化时，会创建一个隐藏的名为 .git 的子目录，用于存放 Git 管理仓库要用到的文件。在 Git 的世界里，一个文件是一个 Git 对象，一次提交也是一个 Git 对象，它们被存储在 .git/objects/ 目录下：
 
 ```
-$ git cherry-pick hash-code
+$ ls .git/objects/
+4d    a0    e6    info    pack
 ```
 
-其中 hash-code 是某次提交生成的 HASH 值。cherry-pick 直译就是摘樱桃，把一个分支想象成一棵树，多次提交就让树上结满了果实，那么 cherry-pick 命令就是摘下其中的一个果实。
+其中前3个目录的目录名长为2个数字字母，分别各存放1个对象。在 Git 的操作越多，产生的对象就越多，为了优化仓库的效率，你可以手工把对象打包：
+
+```
+$ git repack
+$ git repack -d
+```
+
+第1条命令是把对象打包到一起，第2条命令是在打包后删除已作废的对象。执行完打包命令之后，.git/objects/pack/ 目录下会生成2个文件：
+
+```
+$ ls .git/objects/pack/
+pack-b7b37f445a40715c249bf8c0df9631e9fd6c8f4b.idx
+pack-b7b37f445a40715c249bf8c0df9631e9fd6c8f4b.pack
+```
+
+.pack 是包文件，.idx 是包的索引文件。
 
 第42关过关画面如下：
 
-![第42关 cherry-pick](images/level-42-cherry-pick.png)
+![第42关 repack](images/level-42-repack.png)

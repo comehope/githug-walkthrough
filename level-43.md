@@ -1,18 +1,17 @@
-# 第43关 grep
+# 第43关 cherry-pick
 
-> Your project's deadline approaches, you should evaluate how many TODOs are left in your code.
+> Your new feature isn't worth the time and you're going to delete it. But it has one commit that fills in `README` file, and you want this commit to be on the master as well.
 > 
-> 项目的交付时间快到了，你要评估一下代码里还遗留了多少待办事项。
+> 你在新功能上的努力白废了，准备删除掉它，但是往 'README' 文件里填充内容的那次提交还有用，你要把这次提交合并到主线上。
 
-和 Linux 的 grep 命令类似，Git 也提供了一个用于搜索文本的 grep 命令：
+如果你创建了一个分支，在其中进行了多次提交，而在合并时不想把分支上所有的提交都合并到主线，只想选取其中的1个提交合并到主线，那么你可以用下面的命令：
 
 ```
-$ git grep keyword
-$ git grep keyword file-name
+$ git cherry-pick hash-code
 ```
 
-第1条命令在当前项目下查找指定的关键词；第2条命令在指定的文件中查找关键词。
+其中 hash-code 是某次提交生成的 HASH 值。cherry-pick 直译就是摘樱桃，把一个分支想象成一棵树，多次提交就让树上结满了果实，那么 cherry-pick 命令就是摘下其中的一个果实。
 
 第43关过关画面如下：
 
-![第43关 grep](images/level-43-grep.png)
+![第43关 cherry-pick](images/level-43-cherry-pick.png)

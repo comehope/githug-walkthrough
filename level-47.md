@@ -1,53 +1,23 @@
-# 第47关 reorder
+# 第47关 merge_squash
 
-> You have committed several times but in the wrong order. Please reorder your commits.
+> Merge all commits from the long-feature-branch as a single commit.
 > 
-> 你提交过几次，但是提交的顺序错了，请调整提交顺序。
+> 把名为 long-feature-branch 的分支合并到主干，把分支中的多次提交合并为主干上的一次提交。
 
-在第44关和第45关我们使用 ```git rebase -i``` 命令修改了历史日志的提交说明、把多次提交合并成了一次，在本关，我们要用这个命令来调整提交顺序。
-
-先查一下提交日志：
+在第38关我们曾学习过 ```merge``` 合并，它的语法是：
 
 ```
-$ git log --pretty=oneline
-3baec3ba260f841e097675e4ae6661a86e3dba50 Second commit
-a5f696b57d524c83b9fbb094b013590e4ff3d43d Third commit
-19f3b096c2765ab79d9b07a5bed3a4ebb83ebf6a First commit
-f0c159847ae93dabc8fd23766b40cf0cc21b315d Initial Setup
+$ git merge branch-name
 ```
 
-从上面的查询结果看出，"Second commit" 和 "Third commit" 的次序颠倒了。我们找到最后一条日志的哈希值 "f0c159847ae93"，然后输入下面的命令：
+如果分支曾经提交过多次，那么用上面的语句合并之后，主干的日志也会出现多次提交记录。为了符合本关题意，把分支的多次提交合并为主干上的一次提交，要加一个 ```squash``` 参数，如下：
 
 ```
-$ git rebase -i f0c159847ae93
+$ git merge branch-name --squash
 ```
 
-系统自动打开文本编辑器，显示出了历史日志：
-
-```
-pick 19f3b09 First commit
-pick a5f696b Third commit
-pick 3baec3b Second commit
-```
-
-把第2行和第3行的内容调整一下顺序，即这样：
-
-```
-pick 19f3b09 First commit
-pick 3baec3b Second commit
-pick a5f696b Third commit
-```
-
-然后保存退出，系统就会按照调整过的顺序重新执行一遍提交操作。再查看日志，发现顺序已经调整好了。
-
-```
-$ git log --pretty=oneline
-58fe3005755a19d18c017973517dfaca1b1ae648 Third commit
-e0e8d4428578fb7b1284b1c7902e435e9bd571c4 Second commit
-19f3b096c2765ab79d9b07a5bed3a4ebb83ebf6a First commit
-f0c159847ae93dabc8fd23766b40cf0cc21b315d Initial Setup
-```
+如果不加 ```squash``` 参数，在合并之后系统会默默地做一个 ```commit``` 操作，而加了 ```squash``` 参数之后，不会自动 ```commit```，这时你还需要手动执行 ```commit``` 命令，并且写上提交说明。
 
 第47关过关画面如下：
 
-![第47关 reorder](images/level-47-reorder.png)
+![第47关 merge_squash](images/level-47-merge-squash.png)

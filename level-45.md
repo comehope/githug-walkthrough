@@ -1,76 +1,70 @@
-# 第45关 squash
+# 第45关 rename_commit
 
-> You have committed several times but would like all those changes to be one commit.
+> Correct the typo in the message of your first (non-root) commit.
 > 
-> 你提交过几次，但是现在想把这些提交合并成一次提交。
+> 在第一次提交时有一个拼写错误，修正它。
 
-承上关，如果要把多次合并合并成一次提交，可以用 ```git rebase -i``` 的 ```squash``` 命令。
+在使用 Git 的过程中，难免会出现要改写提交内容的情况，Git 提供了非常强大的修改历史的工具，我们就以本关为例，详细说明如何修改历史，并在接下来的第46关和第48关再做另外2个练习。
 
-先查一下提交日志：
-
-```
-$ git log --pretty=oneline
-55d9ec9d216767dd1e080c32f5bcff1b3c62ab5b Updating README (squash this commit into Adding README)
-749b65067db05a02515c580ad8e791306ff02305 Updating README (squash this commit into Adding README)
-1ac3ed61a0ae302cf76dc6f3a37e56e2b5f750f9 Updating README (squash this commit into Adding README)
-606be40cc9e5c684cab87c22c37a9d0225308761 Adding README
-994f2b3a2df48ef4a406a5c62b4b6f6c8c1fac03 Initial Commit
-```
-
-从查询结果看出，添加了 README 之后来又对它做了3次修改。
-
-找到 "Adding README" 下面一条日志的哈希值 "994f2b3a2df48ef4a4"，执行 ```reabse``` 命令：
-
-```
-$ git rebase -i 994f2b3a2df48ef4a4
-```
-
-系统自动打开文本编辑器，显示历史日志：
-
-```
-pick 606be40 Adding README
-pick 1ac3ed6 Updating README (squash this commit into Adding README)
-pick 749b650 Updating README (squash this commit into Adding README)
-pick 55d9ec9 Updating README (squash this commit into Adding README)
-```
-
-把后3条日志前面的 "pick" 命令都改成 "squash"：
-
-```
-pick 606be40 Adding README
-squash 1ac3ed6 Updating README (squash this commit into Adding README)
-squash 749b650 Updating README (squash this commit into Adding README)
-squash 55d9ec9 Updating README (squash this commit into Adding README)
-```
-
-保存退出，系统再次自动打开编辑器，内容是合并过的更新说明：
-
-```
-# This is a combination of 4 commits.
-# The first commit's message is:
-Adding README
-
-# This is the 2nd commit message:
-
-Updating README (squash this commit into Adding README)
-
-# This is the 3rd commit message:
-
-Updating README (squash this commit into Adding README)
-
-# This is the 4th commit message:
-
-Updating README (squash this commit into Adding README)
-```
-
-你可以在此编辑合并之后的更新说明，然后保存退出。再查日志，就会发现3次 "Updating README" 的提交都合并到 "Adding README" 中了。
+先看一下提交日志：
 
 ```
 $ git log --pretty=oneline
-3e8c0e3a729a9d5f959214a2267c481ff0197722 Adding README
-994f2b3a2df48ef4a406a5c62b4b6f6c8c1fac03 Initial Commit
+771b71dca888e80d2bf716672b1475e85a27d695 Second commit
+06973a37415e520eff0bace38181f131698cd888 First coommit
+37d84aed48418346c4567bb863a0eba4617ba5b1 Initial commit
 ```
+
+一共有过3次提交，注意其中哈希值为 "06973a37415e520eff" 的这次提交，提交说明 "First coommit" 中的第2个单词拼错了。
+
+修改提交历史的命令格式是：
+
+```
+$ git rebase -i hash-code
+```
+
+我们已经在第40关接触过 ```git rebase``` 命令，当时是用它来合并分支。但是加了 ```-i``` 参数之后，用途就变为修改提交历史了。其后再跟一个某一条提交日志的哈希值，表示要修改这条日志之前的提交历史。
+
+现在，找到 "First coommit" 下面一条日志的哈希值 "37d84aed48418346c4"，然后输入下面的命令：
+
+```
+$ git rebase -i 37d84aed48418346c4
+```
+
+这时，会启动文本编辑器，显示如下内容：
+
+```
+pick 06973a3 First coommit
+pick 771b71d Second commit
+```
+
+这2行是历史日志，但和 `git log` 的区别在于 `git log` 是按更新时间从后到前显示日志，而这里是按从前到后显示。每一行的前面有一个命令词，表示对此次更新执行什么操作，有以下几种命令：
+
+* "pick"，表示执行此次提交；
+* "reword"，表示执行此次提交，但要修改备注内容；
+* "edit"，表示可以修改此次提交，比如再追加文件或修改文件；
+* "squash"，表示把此次提交的内容合并到上次提交中，备注内容也合并到上次提交中；
+* "fixup"，和 "squash" 类似，但会丢弃掉此次备注内容；
+* "exec"，执行命令行下的命令；
+* "drop"，删除此次提交。
+
+本关就使用 "reword" 命令来完成任务。把第1行前面的 "pick" 改为 "reword"（注意，不用改哈希值后面的备注内容），如下：
+
+```
+reword 06973a3 First coommit
+pick 771b71d Second commit
+```
+
+接下来保存并退出，马上系统会再次打开编辑器，显示以下内容：
+
+```
+First coommit
+
+# Please enter the commit message for your changes.
+```
+
+这时，你把 "coommit" 改为 "commit"，保存并退出，再查看日志，就会发现历史日志的备注内容已经改变了。
 
 第45关过关画面如下：
 
-![第45关 squash](images/level-45-squash.png)
+![第45关 rename_commit](images/level-45-rename-commit.png)

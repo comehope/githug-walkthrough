@@ -1,7 +1,17 @@
-# 第55关 contribute
+# 第55关 submodule
 
-> This is the final level, the goal is to contribute to this repository by making a pull request on GitHub.  Please note that this level is designed to encourage you to add a valid contribution to Githug, not testing your ability to create a pull request.  Contributions that are likely to be accepted are levels, bug fixes and improved documentation.
+> You want to include the files from the following repo: `https://github.com/jackmaney/githug-include-me` into a the folder `./githug-include-me`. Do this without cloning the repo or copying the files from the repo into this repo.
 > 
-> 这是最后一关，目标是让你在 Github 上提交一个 pull request 贡献。设计本关的目的就是鼓励你向 Githug 提交贡献，而不是测试你使用 pull request 的技能。贡献包括新的关卡、修复BUG和改善文档。
+> 你想把 `https://github.com/jackmaney/githug-include-me` 这个仓库的代码引入到自己项目的 `./githug-include-me` 目录，这个方法不需要克隆第三方仓库，也不需要把第三方仓库的文件复制到你的项目中。
 
-恭喜通关！
+如果你想把别人的仓库代码作为自己项目一个库来使用，可以采用模块化的思路，把这个库作为模块进行管理。Git 专门提供了相应的工具，用如下命令把第三方仓库作为模块引入：
+
+```
+$ git submodule add module-url
+```
+
+其中的 module-url 就是第三方仓库的地址。
+
+第55关过关画面如下：
+
+![第55关 submodule](images/level-55-submodule.png)
